@@ -114,7 +114,7 @@ const move = (id, data) => {
     playersTimeout.splice(otherPlayerTime, 1);
 
     const timeoutOtherPlayer = setTimeout(() => {
-        io.to(id).emit('disconnect');
+        io.to(otherPlayer).emit('disconnect');
         const p = availablePlayers.findIndex(item => item === otherPlayer);
         availablePlayers.splice(p, 1);
     }, 30000);
