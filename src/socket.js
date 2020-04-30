@@ -95,6 +95,8 @@ const move = (id, data) => {
 
     io.to(otherPlayer).emit('updateFields', data);
 
+
+    //player
     const playerTime = playersTimeout.findIndex(item => item.id === id);
     clearTimeout(playersTimeout[playerTime].timeout);
     playersTimeout.splice(playerTime, 1);
@@ -103,12 +105,26 @@ const move = (id, data) => {
         io.to(id).emit('disconnect');
         const p = availablePlayers.findIndex(item => item === id);
         availablePlayers.splice(p, 1);
-    }, 30000);
+    }, 300000);
     playersTimeout.push({id, timeout});
+
+    //other player
+    const otherPlayerTime = playersTimeout.findIndex(item => item.id === otherPlayer);
+    clearTimeout(playersTimeout[otherPlayerTime].timeout);
+    playersTimeout.splice(otherPlayerTime, 1);
+
+    const timeoutOtherPlayer = setTimeout(() => {
+        io.to(id).emit('disconnect');
+        const p = availablePlayers.findIndex(item => item === otherPlayer);
+        availablePlayers.splice(p, 1);
+    }, 30000);
+    playersTimeout.push({otherPlayer, timeoutOtherPlayer});
+    
 
     console.log('move');
     console.log(availablePlayers);
     console.log(playersInGame);
+    console.log(playersTimeout);
     console.log('move-----');
 }
 
