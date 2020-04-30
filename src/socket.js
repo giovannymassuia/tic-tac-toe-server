@@ -15,9 +15,9 @@ exports.initWebSockets = (server) => {
         const timeout = setTimeout(() => {
             socket.disconnect();
 
-            const p = availablePlayers.findIndex(item => item === socket.id);
-            availablePlayers.splice(p, 1);
-        }, 30000);
+            // const p = availablePlayers.findIndex(item => item === socket.id);
+            // availablePlayers.splice(p, 1);
+        }, 300000);
         
         playerConnected(socket.id, timeout);
 
@@ -97,28 +97,28 @@ const move = (id, data) => {
 
 
     //player
-    const playerTime = playersTimeout.findIndex(item => item.id === id);
-    clearTimeout(playersTimeout[playerTime].timeout);
-    playersTimeout.splice(playerTime, 1);
+    // const playerTime = playersTimeout.findIndex(item => item.id === id);
+    // clearTimeout(playersTimeout[playerTime].timeout);
+    // playersTimeout.splice(playerTime, 1);
 
-    const timeout = setTimeout(() => {
-        io.to(id).emit('disconnect');
-        const p = availablePlayers.findIndex(item => item === id);
-        availablePlayers.splice(p, 1);
-    }, 300000);
-    playersTimeout.push({id, timeout});
+    // const timeout = setTimeout(() => {
+    //     io.to(id).emit('disconnect');
+    //     const p = availablePlayers.findIndex(item => item === id);
+    //     availablePlayers.splice(p, 1);
+    // }, 300000);
+    // playersTimeout.push({id, timeout});
 
-    //other player
-    const otherPlayerTime = playersTimeout.findIndex(item => item.id === otherPlayer);
-    clearTimeout(playersTimeout[otherPlayerTime].timeout);
-    playersTimeout.splice(otherPlayerTime, 1);
+    // //other player
+    // const otherPlayerTime = playersTimeout.findIndex(item => item.id === otherPlayer);
+    // clearTimeout(playersTimeout[otherPlayerTime].timeout);
+    // playersTimeout.splice(otherPlayerTime, 1);
 
-    const timeoutOtherPlayer = setTimeout(() => {
-        io.to(otherPlayer).emit('disconnect');
-        const p = availablePlayers.findIndex(item => item === otherPlayer);
-        availablePlayers.splice(p, 1);
-    }, 30000);
-    playersTimeout.push({otherPlayer, timeoutOtherPlayer});
+    // const timeoutOtherPlayer = setTimeout(() => {
+    //     io.to(otherPlayer).emit('disconnect');
+    //     const p = availablePlayers.findIndex(item => item === otherPlayer);
+    //     availablePlayers.splice(p, 1);
+    // }, 30000);
+    // playersTimeout.push({otherPlayer, timeoutOtherPlayer});
     
 
     console.log('move');
