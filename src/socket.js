@@ -14,6 +14,9 @@ exports.initWebSockets = (server) => {
         
         const timeout = setTimeout(() => {
             socket.disconnect();
+
+            const p = availablePlayers.findIndex(item => item === socket.id);
+            availablePlayers.splice(p, 1);
         }, 30000);
         
         playerConnected(socket.id, timeout);
@@ -98,6 +101,8 @@ const move = (id, data) => {
 
     const timeout = setTimeout(() => {
         io.to(id).emit('disconnect');
+        const p = availablePlayers.findIndex(item => item === id);
+        availablePlayers.splice(p, 1);
     }, 30000);
     playersTimeout.push({id, timeout});
 
