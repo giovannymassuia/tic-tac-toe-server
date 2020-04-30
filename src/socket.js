@@ -98,7 +98,7 @@ const move = (id, data) => {
     console.log(playerTime);
     console.log(playersTimeout[playerTime]);
     clearTimeout(playersTimeout[playerTime].timeout);
-    playersTimeout.splice(playertime, 1);
+    playersTimeout.splice(playerTime, 1);
     console.log(playersTimeout);
 
     const timeout = setTimeout(() => {
