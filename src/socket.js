@@ -97,7 +97,7 @@ const move = (id, data) => {
     playersTimeout.splice(playertime, 1);
 
     const timeout = setTimeout(() => {
-        socket.disconnect();
+        io.to(id).emit('disconnect');
     }, 30000);
     playersTimeout.push({id, timeout});
 }
