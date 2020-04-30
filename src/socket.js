@@ -17,6 +17,7 @@ exports.initWebSockets = (server) => {
 
             // const p = availablePlayers.findIndex(item => item === socket.id);
             // availablePlayers.splice(p, 1);
+            
         }, 300000);
         
         playerConnected(socket.id, timeout);
