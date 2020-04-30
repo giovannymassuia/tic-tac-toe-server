@@ -93,7 +93,7 @@ const move = (id, data) => {
     io.to(otherPlayer).emit('updateFields', data);
 
     const playerTime = playersTimeout.findIndex(item => item.id === id);
-    clearTimeout(playersTimeout[playerTime.timeout]);
+    clearTimeout(playersTimeout[playerTime].timeout);
     playersTimeout.splice(playertime, 1);
 
     const timeout = setTimeout(() => {
