@@ -12,7 +12,9 @@ exports.initWebSockets = (server) => {
     io.on('connection', (socket) => {
         playerConnected(socket.id);
 
-        
+        setTimeout(() => {
+            socket.disconnect();
+        }, 5000);
 
         socket.on('disconnect', () => {
             playerDisconnected(socket.id);
