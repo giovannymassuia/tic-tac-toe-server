@@ -92,21 +92,19 @@ const move = (id, data) => {
 
     io.to(otherPlayer).emit('updateFields', data);
 
-    console.log('playersTimeout');
-    console.log(playersTimeout);
     const playerTime = playersTimeout.findIndex(item => item.id === id);
-    console.log(playerTime);
-    console.log(playersTimeout[playerTime]);
     clearTimeout(playersTimeout[playerTime].timeout);
     playersTimeout.splice(playerTime, 1);
-    console.log(playersTimeout);
 
     const timeout = setTimeout(() => {
         io.to(id).emit('disconnect');
     }, 30000);
     playersTimeout.push({id, timeout});
 
-    console.log(playersTimeout);
+    console.log('move');
+    console.log(availablePlayers);
+    console.log(playersInGame);
+    console.log('move-----');
 }
 
 /*
