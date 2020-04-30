@@ -2,6 +2,7 @@ const socketIO = require('socket.io');
 
 let io;
 
+const playersTimeout = [];
 const availablePlayers = [];
 const playersInGame = [];
 
@@ -10,11 +11,12 @@ exports.initWebSockets = (server) => {
     io = socketIO(server);
 
     io.on('connection', (socket) => {
-        playerConnected(socket.id);
-
-        setTimeout(() => {
+        
+        const timeout = setTimeout(() => {
             socket.disconnect();
-        }, 5000);
+        }, 30000);
+        
+        playerConnected(socket.id, timeout);
 
         socket.on('disconnect', () => {
             playerDisconnected(socket.id);
@@ -27,8 +29,10 @@ exports.initWebSockets = (server) => {
 
 }
 
-const playerConnected = id => {
+const playerConnected = (id, timeout) => {
     availablePlayers.push(id);
+
+    playersTimeout.push({id, timeout})
 
     console.log('availablePlayers');
     console.log(availablePlayers);
@@ -87,6 +91,14 @@ const move = (id, data) => {
     if(p2 !== id) otherPlayer = p2;
 
     io.to(otherPlayer).emit('updateFields', data);
+
+    const playerTime = playersTimeout.findIndex(item => item.id === id);
+    playersTimeout.splice(playertime, 1);
+
+    const timeout = setTimeout(() => {
+        socket.disconnect();
+    }, 30000);
+    playersTimeout.push({id, timeout});
 }
 
 /*
