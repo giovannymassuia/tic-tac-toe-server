@@ -58,6 +58,11 @@ const playerDisconnected = id => {
         
         availablePlayers.push(playerAvailable);
         io.to(playerAvailable).emit('gameReseted', { message: 'The other player left.' });
+    } else {
+
+        const playerIndex = availablePlayers.findIndex(item => item === id);
+        availablePlayers.splice(playerIndex, 1);
+
     }
 
     console.log('playerDisconnected');
